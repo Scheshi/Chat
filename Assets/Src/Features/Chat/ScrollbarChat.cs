@@ -41,11 +41,13 @@ namespace Src.Features.Chat
             OnClientDisconnected();
             _scrollbar = GetComponent<Scrollbar>();
             textInput.onEndEdit.AddListener(OnEndEditInput);
+            //_scrollbar.onValueChanged.AddListener(UpdateText);
         }
 
         private void OnDestroy()
         {
             textInput.onEndEdit.RemoveListener(OnEndEditInput);
+            //_scrollbar.onValueChanged.RemoveListener(UpdateText);
         }
 
         private void OnEndEditInput(string text)
@@ -55,8 +57,9 @@ namespace Src.Features.Chat
 
         private void UpdateText()
         {
-            string text = "";
-
+            Debug.Log(nameof(UpdateText));
+            string text = string.Empty;
+            
             int index = (int) (_messages.Count * _scrollbar.value);
             for (int i = index; i<_messages.Count; i++)
             {
@@ -64,6 +67,8 @@ namespace Src.Features.Chat
             }
             textChat.text = text;
         }
+
+        private void UpdateText(float value) => UpdateText();
     }
 
 }

@@ -20,7 +20,7 @@ namespace Src.Features.NetworkBehaviours
             _client = new Client(256);
             _client.onMessageReceived += MessageReceived;
             _client.onClientConnected += onClientConnected.Invoke;
-            _client.onClinetDisconnected += onClientDisconnected.Invoke;
+            _client.onClientDisconnected += onClientDisconnected.Invoke;
         }
 
         public void Connect(string userName)
@@ -42,7 +42,7 @@ namespace Src.Features.NetworkBehaviours
         {
             _client.onMessageReceived -= MessageReceived;
             _client.onClientConnected -= onClientConnected.Invoke;
-            _client.onClinetDisconnected -= onClientDisconnected.Invoke;
+            _client.onClientDisconnected -= onClientDisconnected.Invoke;
             _client.Disconnect();
             _client.Dispose();
         }

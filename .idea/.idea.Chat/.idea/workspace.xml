@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2666a8e9-63fb-4f3f-bf88-4fb7954e1302" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/Chat/ScrollbarChat.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/Chat/ScrollbarChat.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ServerBehaviour.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ServerBehaviour.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Chat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chat/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ClientScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ClientScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Src/Features/Chat/ScrollbarChat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Src/Features/Chat/ScrollbarChat.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ClientBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ClientBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ServerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ServerBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Src/Features/Networking/Client.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Src/Features/Networking/Client.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,11 +33,11 @@
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/UserInfoBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/Src/Features/Chat/ScrollbarChat.cs" />
       <option value="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ServerBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" />
       <option value="$PROJECT_DIR$/Assets/Src/Features/Networking/Client.cs" />
+      <option value="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" />
       <option value="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ClientBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/Src/Features/Chat/ScrollbarChat.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="25qCZ7oXrQ1bcEms6shgGJiOALs" />
@@ -94,7 +93,8 @@
       <option name="presentableId" value="Default" />
       <updated>1646245334493</updated>
       <workItem from="1646245453993" duration="70000" />
-      <workItem from="1646282766905" duration="8645000" />
+      <workItem from="1646282766905" duration="11729000" />
+      <workItem from="1646323119837" duration="5457000" />
     </task>
     <servers />
   </component>
@@ -113,6 +113,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

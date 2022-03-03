@@ -14,14 +14,15 @@ namespace Src.Features.Networking
     {
         public event Action<object> onMessageReceived = delegate(object o) {  };
         public event Action onClientConnected = delegate {  };
-        public event Action onClinetDisconnected = delegate {  };
+        public event Action onClientDisconnected = delegate {  };
 
         private CancellationTokenSource _cancellationTokenSource;
         private int _reliableChannelIndex;
         private int _unreliableChannelIndex;
-        private int _hostId;
-        private int _connectionId;
+        private int _hostId = -1;
+        private int _connectionId = -1;
         private int _tickrate;
+        private string _clientName;
 
         private bool _isConnected;
         public bool IsConnected => _isConnected;
@@ -39,25 +40,23 @@ namespace Src.Features.Networking
         /// <param name="userName">Имя пользователя</param>
         public void Connect(string address, int port, bool isWebsocket = false, string userName = null)
         {
+            _clientName = userName;
             NetworkTransport.Init();
             ConnectionConfig config = new ConnectionConfig();
             _reliableChannelIndex = config.AddChannel(QosType.Reliable);
             _unreliableChannelIndex = config.AddChannel(QosType.Unreliable);
             HostTopology topology = new HostTopology(config, 10);
             if (isWebsocket)
-                _hostId = NetworkTransport.AddWebsocketHost(topology, port, address);
+                _hostId = NetworkTransport.AddWebsocketHost(topology, 0, address);
             else
-                _hostId = NetworkTransport.AddHost(topology, port);
+                _hostId = NetworkTransport.AddHost(topology, 0);
                 
             _connectionId = NetworkTransport.Connect(_hostId, address, port, 0, out byte error);
             NetworkError networkError = (NetworkError) error;
             if (networkError == NetworkError.Ok)
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                _isConnected = true;
                 ReceiveMessageWaiter(_cancellationTokenSource.Token);
-                if(!string.IsNullOrEmpty(userName))
-                    SendMessage(userName, true);
             }
 #if UNITY_EDITOR
             else
@@ -92,7 +91,10 @@ namespace Src.Features.Networking
         public void SendMessage(string message, bool isReliable)
         {
             byte[] buffer = Encoding.Unicode.GetBytes(message);
-            NetworkTransport.Send(_hostId, _connectionId, (isReliable ? _reliableChannelIndex : _unreliableChannelIndex), buffer, buffer.Length * sizeof(char), out byte error);
+            if (NetworkTransport.Send(_hostId, _connectionId,
+                (isReliable ? _reliableChannelIndex : _unreliableChannelIndex), buffer, message.Length * sizeof(char),
+                out byte error))
+                return;
 #if UNITY_EDITOR
             NetworkError networkError = (NetworkError) error;
             if(networkError != NetworkError.Ok)
@@ -110,25 +112,30 @@ namespace Src.Features.Networking
                     recBuffer, recBuffer.Length, out int recSize, out byte error);
                 switch (ev)
                 {
-                    case NetworkEventType.Nothing:
-                        return;
                     case NetworkEventType.ConnectEvent:
                         onClientConnected.Invoke();
+                        if (!_isConnected)
+                        {
+                            if(!string.IsNullOrEmpty(_clientName))
+                                SendMessage(_clientName, true);
+                            _isConnected = true;
+                        }
+
                         break;
                     case NetworkEventType.DisconnectEvent:
-                        onClinetDisconnected.Invoke();
+                        onClientDisconnected.Invoke();
                         break;
                     case NetworkEventType.DataEvent:
                         string message = Encoding.Unicode.GetString(recBuffer, 0, recBuffer.Length);
                         onMessageReceived.Invoke(message);
                         break;
+                    case NetworkEventType.Nothing:
                     case NetworkEventType.BroadcastEvent:
                     default:
                         break;
                 }
-                await Task.Delay(1000 / _tickrate, token);
+                await Task.Yield();
             }
-            token.ThrowIfCancellationRequested();
         }
 
 

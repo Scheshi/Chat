@@ -31,14 +31,17 @@ namespace Src.Features.Networking
         /// Запустить сервер
         /// </summary>
         /// <param name="port">Порт сервера</param>
-        public void Start(int port)
+        public void Start(int port, bool isWebsockket)
         {
             NetworkTransport.Init();
             ConnectionConfig cc = new ConnectionConfig();
             _reliableChannel = cc.AddChannel(QosType.Reliable);
             _unreliableChannel = cc.AddChannel(QosType.Unreliable);
             HostTopology topology = new HostTopology(cc, _maxConnection);
-            _hostId = NetworkTransport.AddHost(topology, port);
+            if (isWebsockket)
+                _hostId = NetworkTransport.AddWebsocketHost(topology, port, "127.0.0.1");
+            else
+                _hostId = NetworkTransport.AddHost(topology, port);
             _isStarted = true;
             _cancellationTokenSource = new CancellationTokenSource();
             ReceiveMessageWaiter(_cancellationTokenSource.Token);
@@ -109,7 +112,7 @@ namespace Src.Features.Networking
 
                     case NetworkEventType.ConnectEvent:
                         _connectedUsers.Add(connectionId, string.Empty);
-                        Debug.Log($"{connectionId} is connecting...");
+                        Debug.LogFormat("{0} is connecting...", connectionId);
                         break;
 
                     case NetworkEventType.DataEvent:
@@ -117,18 +120,18 @@ namespace Src.Features.Networking
                         if (string.IsNullOrEmpty(_connectedUsers[connectionId]))
                         {
                             _connectedUsers[connectionId] = message;
-                            Debug.Log($"{message} enter the chat");
+                            Debug.LogFormat(message + " enter the chat");
                             SendMessageToAll($"{message} enter the chat", true);
                             break;
                         }
 
-                        Debug.Log($"{_connectedUsers[connectionId]}: {message}");
+                        Debug.LogFormat("{0}: {1}", _connectedUsers[connectionId], message);
                         SendMessageToAll($"{_connectedUsers[connectionId]}: {message}", true);
                         break;
 
                     case NetworkEventType.DisconnectEvent:
                         SendMessageToAll($"{_connectedUsers[connectionId]} has disconnected.", true);
-                        Debug.Log($"{_connectedUsers[connectionId]} has disconnected.");
+                        Debug.LogFormat("{0} has disconnected.", _connectedUsers[connectionId]);
                         _connectedUsers.Remove(connectionId);
                         break;
 
@@ -144,7 +147,9 @@ namespace Src.Features.Networking
 
         public void Dispose()
         {
-            Stop();
+            if(_isStarted)
+                Stop();
+            _cancellationTokenSource.Dispose();
         }
     }
 }
