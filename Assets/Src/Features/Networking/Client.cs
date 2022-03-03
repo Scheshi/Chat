@@ -36,7 +36,8 @@ namespace Src.Features.Networking
         /// </summary>
         /// <param name="address">Адрес удаленного хоста</param>
         /// <param name="port">Порт удаленного хоста</param>
-        public void Connect(string address, int port)
+        /// <param name="userName">Имя пользователя</param>
+        public void Connect(string address, int port, string userName = null)
         {
             NetworkTransport.Init();
             ConnectionConfig config = new ConnectionConfig();
@@ -51,6 +52,8 @@ namespace Src.Features.Networking
                 _cancellationTokenSource = new CancellationTokenSource();
                 _isConnected = true;
                 ReceiveMessageWaiter(_cancellationTokenSource.Token);
+                if(!string.IsNullOrEmpty(userName))
+                    SendMessage(userName, true);
             }
 #if UNITY_EDITOR
             else
