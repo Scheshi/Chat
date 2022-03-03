@@ -7,6 +7,9 @@ using UnityEngine.Networking;
 
 namespace Src.Features.Networking
 {
+    /// <summary>
+    /// Объект клиента подключения
+    /// </summary>
     public class Client: IDisposable
     {
         public event Action<object> onMessageReceived = delegate(object o) {  };
@@ -28,6 +31,11 @@ namespace Src.Features.Networking
             _tickrate = tickRate;
         }
 
+        /// <summary>
+        /// Реализовать подключение к серверу
+        /// </summary>
+        /// <param name="address">Адрес удаленного хоста</param>
+        /// <param name="port">Порт удаленного хоста</param>
         public void Connect(string address, int port)
         {
             NetworkTransport.Init();
@@ -50,6 +58,9 @@ namespace Src.Features.Networking
             #endif
         }
 
+        /// <summary>
+        /// Реализовать отключение от сервера
+        /// </summary>
         public void Disconnect()
         {
             if (!_isConnected)
@@ -66,6 +77,11 @@ namespace Src.Features.Networking
             #endif
         }
 
+        /// <summary>
+        /// Отправить сообщение
+        /// </summary>
+        /// <param name="message">Сообщение</param>
+        /// <param name="isReliable">Гарантированный метод доставки</param>
         public void SendMessage(string message, bool isReliable)
         {
             byte[] buffer = Encoding.Unicode.GetBytes(message);
@@ -103,7 +119,7 @@ namespace Src.Features.Networking
                     default:
                         break;
                 }
-                await Task.Delay(_tickrate, token);
+                await Task.Delay(1000 / _tickrate, token);
             }
             token.ThrowIfCancellationRequested();
         }
