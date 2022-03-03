@@ -37,14 +37,18 @@ namespace Src.Features.Networking
         /// <param name="address">Адрес удаленного хоста</param>
         /// <param name="port">Порт удаленного хоста</param>
         /// <param name="userName">Имя пользователя</param>
-        public void Connect(string address, int port, string userName = null)
+        public void Connect(string address, int port, bool isWebsocket = false, string userName = null)
         {
             NetworkTransport.Init();
             ConnectionConfig config = new ConnectionConfig();
             _reliableChannelIndex = config.AddChannel(QosType.Reliable);
             _unreliableChannelIndex = config.AddChannel(QosType.Unreliable);
             HostTopology topology = new HostTopology(config, 10);
-            _hostId = NetworkTransport.AddHost(topology, port);
+            if (isWebsocket)
+                _hostId = NetworkTransport.AddWebsocketHost(topology, port, address);
+            else
+                _hostId = NetworkTransport.AddHost(topology, port);
+                
             _connectionId = NetworkTransport.Connect(_hostId, address, port, 0, out byte error);
             NetworkError networkError = (NetworkError) error;
             if (networkError == NetworkError.Ok)

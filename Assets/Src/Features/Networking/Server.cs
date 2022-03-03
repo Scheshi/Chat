@@ -109,6 +109,7 @@ namespace Src.Features.Networking
 
                     case NetworkEventType.ConnectEvent:
                         _connectedUsers.Add(connectionId, string.Empty);
+                        Debug.Log($"{connectionId} is connecting...");
                         break;
 
                     case NetworkEventType.DataEvent:
@@ -116,15 +117,18 @@ namespace Src.Features.Networking
                         if (string.IsNullOrEmpty(_connectedUsers[connectionId]))
                         {
                             _connectedUsers[connectionId] = message;
+                            Debug.Log($"{message} enter the chat");
                             SendMessageToAll($"{message} enter the chat", true);
                             break;
                         }
 
+                        Debug.Log($"{_connectedUsers[connectionId]}: {message}");
                         SendMessageToAll($"{_connectedUsers[connectionId]}: {message}", true);
                         break;
 
                     case NetworkEventType.DisconnectEvent:
                         SendMessageToAll($"{_connectedUsers[connectionId]} has disconnected.", true);
+                        Debug.Log($"{_connectedUsers[connectionId]} has disconnected.");
                         _connectedUsers.Remove(connectionId);
                         break;
 

@@ -12,6 +12,7 @@ namespace Src.Features.NetworkBehaviours
         [SerializeField] private UnityEvent onClientDisconnected;
         [SerializeField] private string address;
         [SerializeField] private int port;
+        [SerializeField] private bool isWebsocket;
         private Client _client;
 
         private void Start()
@@ -24,12 +25,17 @@ namespace Src.Features.NetworkBehaviours
 
         public void Connect(string userName)
         {
-            _client.Connect(address, port, userName);
+            _client.Connect(address, port, isWebsocket, userName);
         }
 
         public void Disconnect()
         {
             _client.Disconnect();
+        }
+
+        public void SendMessage(string message)
+        {
+            _client.SendMessage(message, true);
         }
 
         private void OnDestroy()
