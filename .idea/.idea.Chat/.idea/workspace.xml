@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2666a8e9-63fb-4f3f-bf88-4fb7954e1302" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ClientBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ClientBehaviour.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/UserInfoBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/UserInfoBehaviour.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Chat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chat/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +30,8 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Src/Features/Networking/Client.cs" />
       <option value="$PROJECT_DIR$/Assets/Src/Features/Networking/Server.cs" />
+      <option value="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/ClientBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/Src/Features/NetworkBehaviours/UserInfoBehaviour.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="25qCZ7oXrQ1bcEms6shgGJiOALs" />
@@ -72,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1646245334493</updated>
       <workItem from="1646245453993" duration="70000" />
-      <workItem from="1646282766905" duration="4816000" />
+      <workItem from="1646282766905" duration="6557000" />
     </task>
     <servers />
   </component>
