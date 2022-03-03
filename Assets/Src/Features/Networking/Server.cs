@@ -9,6 +9,9 @@ using UnityEngine.Networking;
 
 namespace Src.Features.Networking
 {
+    /// <summary>
+    /// Объект сервера
+    /// </summary>
     public class Server: IDisposable
     {
         private CancellationTokenSource _cancellationTokenSource;
@@ -24,6 +27,10 @@ namespace Src.Features.Networking
             _maxConnection = networkClientMaxConnection;
         }
 
+        /// <summary>
+        /// Запустить сервер
+        /// </summary>
+        /// <param name="port">Порт сервера</param>
         public void Start(int port)
         {
             NetworkTransport.Init();
@@ -37,6 +44,9 @@ namespace Src.Features.Networking
             ReceiveMessageWaiter(_cancellationTokenSource.Token);
         }
 
+        /// <summary>
+        /// Остановить сервер
+        /// </summary>
         public void Stop()
         {
             if (!_isStarted) return;
@@ -47,6 +57,12 @@ namespace Src.Features.Networking
             _isStarted = false;
         }
         
+        /// <summary>
+        /// Отправить сообщение подключенному пользователю
+        /// </summary>
+        /// <param name="message">Сообщение</param>
+        /// <param name="connectionID">ID подключения</param>
+        /// <param name="isReliable">Гарантированная доставка сообщения</param>
         public void SendMessage(string message, int connectionID, bool isReliable)
         {
             byte[] buffer = Encoding.Unicode.GetBytes(message);
@@ -56,6 +72,11 @@ namespace Src.Features.Networking
             #endif
         }
         
+        /// <summary>
+        /// Отправить сообщение всем пользователям
+        /// </summary>
+        /// <param name="message">Сообщение</param>
+        /// <param name="isReliable">Гарантированная доставка сообщения</param>
         public void SendMessageToAll(string message, bool isReliable)
         {
             int[] ids = _connectedUsers.Keys.ToArray();
